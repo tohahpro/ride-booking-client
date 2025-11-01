@@ -5,34 +5,34 @@ import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
 
-const RiderRequest = lazy(()=> import('@/pages/Rider/riderRequest'))
+const RiderRequest = lazy(() => import('@/pages/Rider/riderRequest'))
 export const riderSidebarItems: ISidebarItem[] = [
-    {
-      title: "Dashboard",      
-      items: [
-        {
-          title: "Ride Request",
-          url: "/rider/ride-request",
-          component: RiderRequest,
-        },
-        {
-          title: "History Details",
-          url: "/rider/history",
-          component: History,
-        }, 
-         {
-          title: "Profile",
-          url: "/rider/profile",
-          component: ProfilePage,
-        },
-        
-      ],
-    }   
+  {
+    title: "Dashboard",
+    items: [
+      {
+        title: "Ride Request",
+        url: "/rider/ride-request",
+        component: RiderRequest,
+      },
+      {
+        title: "History Details",
+        url: "/rider/history",
+        component: History,
+      },
+      {
+        title: "Profile",
+        url: "/rider/profile",
+        component: ProfilePage,
+      },
+
+    ],
+  }
 ]
 
 export const riderDynamicRoutes = [
   {
     url: "/rider/history/:id",
     component: RideHistoryDetails,
-  },
+  }  
 ];

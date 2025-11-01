@@ -11,6 +11,7 @@ import { role } from "@/constants/role";
 import { riderDynamicRoutes, riderSidebarItems } from "./riderSidebarItems";
 import { driverDynamicRoutes, driverSidebarItems } from "./driverSidebarItems";
 import DriverRegistration from "@/pages/Driver/DriverRegistration";
+import FaqPage from "@/pages/Public/FAQ";
 
 
 const router = createBrowserRouter([
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
             {
                 index: true,
                 Component: Homepage
-            }
+            },
+            {
+                path: '/faq',
+                Component: FaqPage
+            },
         ]
     },
     {

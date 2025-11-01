@@ -37,7 +37,7 @@ const RideRequestForm = () => {
   };
 
 
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   const onSubmit = async (data: RideFormData) => {
@@ -58,7 +58,7 @@ const RideRequestForm = () => {
             type: "Point",
             coordinates: [destination.longitude, destination.latitude],
           },
-          address: data.destinationAddress, 
+          address: data.destinationAddress,
         },
       };
 

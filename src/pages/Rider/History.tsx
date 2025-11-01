@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from "@/components/ui/button";
 import {
     Table,
     TableBody,
@@ -29,7 +28,7 @@ const History = () => {
                         <TableHead className="w-[100px]">Pickup Location</TableHead>
                         <TableHead>Fare</TableHead>
                         <TableHead>Ride Status</TableHead>
-                        <TableHead>Details</TableHead>
+                        <TableHead>Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -39,12 +38,8 @@ const History = () => {
                                 <TableCell className="font-medium">{history.destinationLocation.address}</TableCell>
                                 <TableCell className="font-medium">{history.pickupLocation.address}</TableCell>
                                 <TableCell>{history.fare} tk</TableCell>
-                                <TableCell>{history.status}</TableCell>
-                                <TableCell>
-                                    <Link to={`/rider/history/${history._id}`}>
-                                        <Button className="cursor-pointer">Details</Button>
-                                    </Link>
-                                </TableCell>
+                                <TableCell>{history.status}</TableCell>                                
+                                <TableCell><Link to={`/rider/history/${history._id}`}>Details</Link></TableCell>                                
                             </TableRow>
                         ))
                     }
