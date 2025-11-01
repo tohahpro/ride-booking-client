@@ -44,7 +44,7 @@ export const driverApi = baseApi.injectEndpoints({
         method: "PATCH",
         data,
       }),
-      invalidatesTags: ["DRIVER"],
+      invalidatesTags: ["USER"],
     }),
 
     getDriverHistory: builder.query({

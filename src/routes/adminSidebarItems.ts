@@ -1,4 +1,5 @@
 import AllRides from "@/pages/Admin/AllRides";
+import ProfilePage from "@/pages/ProfilePage";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -17,6 +18,11 @@ export const adminSidebarItems: ISidebarItem[] = [
           title: "All Rides",
           url: "/admin/all-rides",
           component: AllRides,
+        },
+        {
+          title: "Profile",
+          url: "/admin/profile",
+          component: ProfilePage,
         },
       ],
     },    

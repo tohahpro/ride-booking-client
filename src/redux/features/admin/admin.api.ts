@@ -26,6 +26,7 @@ export const adminApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 data: { isActive },
             }),
+            invalidatesTags: ['USER'],
         }),
         changeBlockStatus: builder.mutation({
             query: (id: string) => ({

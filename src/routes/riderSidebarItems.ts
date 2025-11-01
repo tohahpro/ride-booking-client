@@ -1,4 +1,5 @@
 import RideHistoryDetails from "@/components/modules/Rider/RideHistoryDetails";
+import ProfilePage from "@/pages/ProfilePage";
 import History from "@/pages/Rider/History";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
@@ -19,7 +20,11 @@ export const riderSidebarItems: ISidebarItem[] = [
           url: "/rider/history",
           component: History,
         }, 
-        
+         {
+          title: "Profile",
+          url: "/rider/profile",
+          component: ProfilePage,
+        },
         
       ],
     }   

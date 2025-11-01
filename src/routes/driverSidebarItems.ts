@@ -1,6 +1,7 @@
 import RideActionDetails from "@/components/modules/Driver/RideActionDetails";
 import AcceptRide from "@/pages/Driver/AcceptRide";
 import HistoryPage from "@/pages/Driver/HistoryPage";
+import ProfilePage from "@/pages/ProfilePage";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -24,6 +25,11 @@ export const driverSidebarItems: ISidebarItem[] = [
           title: "History",
           url: "/driver/history",
           component: HistoryPage,
+        },
+         {
+          title: "Profile",
+          url: "/driver/profile",
+          component: ProfilePage,
         },
         
       ],
