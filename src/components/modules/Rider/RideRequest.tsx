@@ -51,14 +51,14 @@ const RideRequestForm = () => {
             type: "Point",
             coordinates: [pickup.longitude, pickup.latitude],
           },
-          address: data.pickupAddress, // ✅ Add this
+          address: data.pickupAddress,
         },
         destinationLocation: {
           location: {
             type: "Point",
             coordinates: [destination.longitude, destination.latitude],
           },
-          address: data.destinationAddress, // ✅ Add this
+          address: data.destinationAddress, 
         },
       };
 

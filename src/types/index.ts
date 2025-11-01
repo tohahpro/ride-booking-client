@@ -27,5 +27,18 @@ export type ApiError = {
   };
 };
 
+export enum vehicle {
+    CAR = "CAR",
+    BIKE = "BIKE",
+    CNG = "CNG"
+}
+
+export type IDriver = {
+  userId: string;
+  vehicleType: vehicle;
+  vehicleNumber: string;
+  licenseNumber: string;
+  isOnline: boolean;
+}
 
 export type TRole = "driver" | "admin" | "rider";

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  BoltIcon,
   Layers2Icon,
   LogOutIcon,
   Moon,
@@ -25,18 +24,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useTheme } from "@/hooks/useTheme"
 import { Link } from "react-router"
-import { role } from "@/constants/role"
 
-export default function UserMenu({ handleLogout, data }: any) {
 
- 
-  
-
-  const navigationLinks = [
-    { href: "/admin", label: "Dashboard", role: role.admin },
-    { href: "/driver", label: "Dashboard", role: role.driver },
-    { href: "/rider", label: "Dashboard", role: role.rider }
-  ]   
+export default function UserMenu({ handleLogout, data }: any) {  
 
   const { theme, setTheme } = useTheme()
 
@@ -70,28 +60,10 @@ export default function UserMenu({ handleLogout, data }: any) {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">
-            <BoltIcon size={16} className="opacity-60" aria-hidden="true" />            
-            {
-              navigationLinks.map((link) => (
-                <>
-                  {
-                    link?.role === data?.data?.role && (
-                      <Link
-                        to={link.href}>{link.label}
-                      </Link>
-                    )
-                  }
-                </>
-
-              ))
-            }
-
-          </DropdownMenuItem>
+        <DropdownMenuGroup>          
           <DropdownMenuItem className="cursor-pointer">
             <Layers2Icon size={16} className="opacity-60" aria-hidden="true" />
-            <span>Option 2</span>
+            <Link to={'/driver-registration'}>Register as Driver</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

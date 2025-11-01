@@ -9,7 +9,8 @@ import { adminSidebarItems } from "./adminSidebarItems";
 import { TRole } from "@/types";
 import { role } from "@/constants/role";
 import { riderDynamicRoutes, riderSidebarItems } from "./riderSidebarItems";
-import { driverSidebarItems } from "./driverSidebarItems";
+import { driverDynamicRoutes, driverSidebarItems } from "./driverSidebarItems";
+import DriverRegistration from "@/pages/Driver/DriverRegistration";
 
 
 const router = createBrowserRouter([
@@ -48,12 +49,20 @@ const router = createBrowserRouter([
         path: '/driver',
         children: [
             {index: true, element: <Navigate to={'/driver/get-request'}/>},
-            ...generateRoutes(driverSidebarItems)
+            ...generateRoutes(driverSidebarItems),
+            ...driverDynamicRoutes.map(route => ({
+                path: route.url,
+                Component: route.component
+            }))
         ]
     },
     {
         path: '/login',
         Component: LoginPage
+    },
+    {
+        path: '/driver-registration',
+        Component: DriverRegistration
     },
     
 ]);

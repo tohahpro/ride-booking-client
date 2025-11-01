@@ -164,20 +164,43 @@ export default function Navbar() {
             <PopoverContent align="start" className="w-36 p-1 mr-9 md:hidden">
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
-                  {navigationLinks.map((link, index) => {
-
-                    return (
+                  {navigationLinks.map((link, index) => (
+                <div key={index}>
+                  {
+                    link.role === "PUBLIC" && (
                       <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink
-                          asChild
-                          className="flex-row items-center gap-2 py-1.5"
-                        >
-                          <Link to={link.href}>{link.label}</Link>
-
+                        <NavigationMenuLink asChild>
+                          <Link
+                            className={cn(
+                              "flex-row items-center gap-2 py-1.5 block w-full px-2",
+                              isActive(link.href) ? "text-sidebar-primary font-medium" : ""
+                            )}
+                            to={link.href}>{link.label}
+                          </Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     )
-                  })}
+                  }
+
+                  {
+                    link.role === data?.data?.data?.role && (
+                      <NavigationMenuItem key={index} className="w-full">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            className={cn(
+                              "flex-row items-center gap-2 py-1.5 block w-full px-2",
+                              isActive(link.href) ? "text-primary font-medium" : "text-muted-foreground"
+                            )}
+                            to={link.href}>{link.label}
+                          </Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    )
+                  }
+                </div>
+
+
+              ))}
                   <div className="flex justify-center w-full"><ModeToggle /></div>
                 </NavigationMenuList>
               </NavigationMenu>

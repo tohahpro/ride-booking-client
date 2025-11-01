@@ -1,5 +1,5 @@
 import RideHistoryDetails from "@/components/modules/Rider/RideHistoryDetails";
-import History from "@/pages/Rider/history";
+import History from "@/pages/Rider/History";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 

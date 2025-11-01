@@ -1,28 +1,38 @@
+import RideActionDetails from "@/components/modules/Driver/RideActionDetails";
+import AcceptRide from "@/pages/Driver/AcceptRide";
+import HistoryPage from "@/pages/Driver/HistoryPage";
 import type { ISidebarItem } from "@/types";
-// import { lazy } from "react";
+import { lazy } from "react";
 
 
-// const driverRequest = lazy(()=> import('@/pages/Rider/riderRequest'))
+const driverRequest = lazy(()=> import('@/pages/Driver/AllRides'))
 export const driverSidebarItems: ISidebarItem[] = [
     {
       title: "Dashboard",      
       items: [
-        // {
-        //   title: "All Users",
-        //   url: "/rider/ride-request",
-        //   // component: RiderRequest,
-        // },
+        {
+          title: "Request Rides",
+          url: "/driver/get-request",
+          component: driverRequest,
+        },
+        {
+          title: "Running Rides",
+          url: "/driver/accepted",
+          component: AcceptRide,
+        },
+        {
+          title: "History",
+          url: "/driver/history",
+          component: HistoryPage,
+        },
         
       ],
-    },    
-    // {
-    //   title: "Tour Management",
-    //   items: [
-    //     {
-    //       title: "Add Tour",
-    //       url: "/admin/all-users",
-    //       component: AllUsers
-    //     },        
-    //   ],
-    // },
+    }  
 ]
+
+export const driverDynamicRoutes = [
+  {
+    url: "ride-details/:id",
+    component: RideActionDetails,
+  },
+];
