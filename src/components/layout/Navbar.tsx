@@ -19,7 +19,10 @@ import UserMenu from "../ui/user-menu"
 
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
-  { href: "/about", label: "About", role: "PUBLIC" }
+  { href: "/about", label: "About", role: "PUBLIC" },
+  { href: "/features", label: "Features", role: "PUBLIC" },
+  { href: "/contact", label: "Contact", role: "PUBLIC" },
+  { href: "/faq", label: "FAQ", role: "PUBLIC" },
 ]
 
 
