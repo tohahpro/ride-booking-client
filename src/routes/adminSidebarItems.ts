@@ -20,14 +20,4 @@ export const adminSidebarItems: ISidebarItem[] = [
         },
       ],
     },    
-    // {
-    //   title: "Tour Management",
-    //   items: [
-    //     {
-    //       title: "Add Tour",
-    //       url: "/admin/all-users",
-    //       component: AllUsers
-    //     },        
-    //   ],
-    // },
 ]

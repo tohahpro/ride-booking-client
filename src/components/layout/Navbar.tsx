@@ -7,26 +7,19 @@ import {
 } from "@/components/ui/navigation-menu"
 import {
   Popover,
-  PopoverContent,
-  PopoverTrigger,
+  PopoverContent
 } from "@/components/ui/popover"
 import { Link, useLocation } from "react-router"
 import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api"
 import { useDispatch } from "react-redux"
 import { cn } from "@/lib/utils"
 import { ModeToggle } from "./ModeToggler"
-import { role } from "@/constants/role"
 import UserMenu from "../ui/user-menu"
 
 
-// Navigation links with icons for desktop icon-only navigation
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
-  { href: "/about", label: "About", role: "PUBLIC" },
-  { href: "/admin", label: "Dashboard", role: role.admin },
-  { href: "/rider", label: "Dashboard", role: role.rider },
-  { href: "/driver", label: "Dashboard", role: role.driver },
-
+  { href: "/about", label: "About", role: "PUBLIC" }
 ]
 
 
@@ -83,23 +76,7 @@ export default function Navbar() {
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     )
-                  }
-
-                  {
-                    link.role === data?.data?.data?.role && (
-                      <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            className={cn(
-                              "flex-row items-center gap-2 py-1.5 block w-full px-2",
-                              isActive(link.href) ? "text-primary font-medium" : "text-muted-foreground"
-                            )}
-                            to={link.href}>{link.label}
-                          </Link>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    )
-                  }
+                  }                  
                 </div>
 
 
@@ -126,41 +103,7 @@ export default function Navbar() {
                 </>
               )
             }
-
-            <PopoverTrigger asChild>
-              <Button
-                className="group size-8 md:hidden"
-                variant="ghost"
-                size="icon"
-              >
-                <svg
-                  className="pointer-events-none"
-                  width={16}
-                  height={16}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 12L20 12"
-                    className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-315"
-                  />
-                  <path
-                    d="M4 12H20"
-                    className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
-                  />
-                  <path
-                    d="M4 12H20"
-                    className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-135"
-                  />
-                </svg>
-              </Button>
-            </PopoverTrigger>
-
+            
             <PopoverContent align="start" className="w-36 p-1 mr-9 md:hidden">
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
