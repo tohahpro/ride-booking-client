@@ -12,6 +12,7 @@ import { riderDynamicRoutes, riderSidebarItems } from "./riderSidebarItems";
 import { driverDynamicRoutes, driverSidebarItems } from "./driverSidebarItems";
 import DriverRegistration from "@/pages/Driver/DriverRegistration";
 import FaqPage from "@/pages/Public/FAQ";
+import Contact from "@/pages/Public/Contact";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: '/faq',
                 Component: FaqPage
+            },
+            {
+                path: '/contact',
+                Component: Contact
             },
         ]
     },

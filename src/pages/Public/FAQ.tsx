@@ -12,6 +12,7 @@ import {
   CreditCard,
   ShieldCheck,
 } from "lucide-react";
+import { Link } from "react-router";
 
 const faqs = [
   {
@@ -162,12 +163,12 @@ export default function FaqPage() {
         <div className="text-center mt-10">
           <p className="">
             Didn’t find what you’re looking for?{" "}
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className=" font-medium hover:underline"
             >
               Contact Support
-            </a>
+            </Link>
           </p>
         </div>
       </div>
