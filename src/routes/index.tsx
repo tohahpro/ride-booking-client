@@ -14,6 +14,7 @@ import DriverRegistration from "@/pages/Driver/DriverRegistration";
 import FaqPage from "@/pages/Public/FAQ";
 import Contact from "@/pages/Public/Contact";
 import FeaturesSection from "@/pages/Public/Features";
+import AboutPage from "@/pages/Public/AboutPage";
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: '/features',
                 Component: FeaturesSection
+            },
+            {
+                path: '/about',
+                Component: AboutPage
             },
         ]
     },
