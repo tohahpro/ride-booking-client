@@ -63,7 +63,7 @@ export function Team() {
           </p>
         </div>
 
-        <div className="md:4/5 lg:w-3/4 mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="md:4/5 lg:w-3/4 mx-auto grid md:grid-cols-2 gap-8">
           {teamMembers.map((member, index) => (
             <Card key={index} className="rounded-2xl border-0 shadow-lg bg-card hover:shadow-xl transition-all group">
               <CardContent className="p-6 text-center">

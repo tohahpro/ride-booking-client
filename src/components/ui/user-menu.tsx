@@ -30,6 +30,9 @@ import { PopoverTrigger } from "./popover";
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
+  { href: "/features", label: "Features", role: "PUBLIC" },
+  { href: "/contact", label: "Contact", role: "PUBLIC" },
+  { href: "/faq", label: "FAQ", role: "PUBLIC" },
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/rider", label: "Dashboard", role: role.rider },
   { href: "/driver", label: "Dashboard", role: role.driver },

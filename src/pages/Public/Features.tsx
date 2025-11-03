@@ -95,10 +95,6 @@ export default function FeaturesPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-16 px-6 text-center">
-      <span className="text-sm text-purple-600 font-semibold px-4 py-1 rounded-full mb-4">
-        Core Platform Capabilities
-      </span>
-
       <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
         Powerful Features for Everyone
       </h1>
