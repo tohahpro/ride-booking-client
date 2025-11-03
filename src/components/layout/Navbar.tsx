@@ -47,7 +47,7 @@ export default function Navbar() {
         {/* Left: Logo */}
         <div className="flex flex-1 items-center gap-2">
           <Link to="/" className="text-primary font-semibold text-lg hover:text-primary/90">
-            Ride<span className="text-foreground">Share</span>
+            Ride<span className="text-foreground">Flow</span>
           </Link>
         </div>
 
@@ -64,7 +64,7 @@ export default function Navbar() {
                       className={cn(
                         "px-3 py-2 text-sm font-medium transition-colors",
                         isActive(link.href)
-                          ? "text-primary border-b-2 border-primary"
+                          ? "text-primary border-b-2 rounded-b-none border-primary"
                           : "text-muted-foreground hover:text-foreground"
                       )}
                     >
