@@ -89,7 +89,7 @@ const ProfilePage = () => {
     if (isLoading) return <div className="flex justify-center items-center h-40"><p>Loading...</p></div>;
     console.log(user._id);
     return (
-        <div className="lg:w-1/2 lg:mx-auto space-y-8">
+        <div className="mx-auto space-y-8">
             {/* User Info Card */}
             <Card className="p-4 space-y-4">
                 <CardHeader className="flex items-center gap-4">

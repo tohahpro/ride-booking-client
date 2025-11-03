@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useCreateRideRequestMutation } from "@/redux/features/rider/rider.api";
 import { useNavigate } from "react-router";
+import { Button } from "@/components/ui/button";
 
 
 const rideSchema = z.object({
@@ -73,37 +74,39 @@ const RideRequestForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto p-4 space-y-4">
-      <div>
-        <label className="block mb-1 font-semibold">Pickup Address</label>
-        <input
-          {...register("pickupAddress")}
-          type="text"
-          className="w-full border rounded p-2"
-          placeholder="Enter pickup address"
-        />
-        {errors.pickupAddress && <p className="text-red-500 text-sm">{errors.pickupAddress.message}</p>}
-      </div>
+    <div className="py-28">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto p-6 shadow-2xl rounded-xl space-y-4">
+        <div>
+          <label className="block mb-1 font-semibold">Pickup Address</label>
+          <input
+            {...register("pickupAddress")}
+            type="text"
+            className="w-full border rounded p-2"
+            placeholder="Enter pickup address"
+          />
+          {errors.pickupAddress && <p className="text-red-500 text-sm">{errors.pickupAddress.message}</p>}
+        </div>
 
-      <div>
-        <label className="block mb-1 font-semibold">Destination Address</label>
-        <input
-          {...register("destinationAddress")}
-          type="text"
-          className="w-full border rounded p-2"
-          placeholder="Enter destination address"
-        />
-        {errors.destinationAddress && <p className="text-red-500 text-sm">{errors.destinationAddress.message}</p>}
-      </div>
+        <div>
+          <label className="block mb-1 font-semibold">Destination Address</label>
+          <input
+            {...register("destinationAddress")}
+            type="text"
+            className="w-full border rounded p-2"
+            placeholder="Enter destination address"
+          />
+          {errors.destinationAddress && <p className="text-red-500 text-sm">{errors.destinationAddress.message}</p>}
+        </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
-      >
-        {isSubmitting ? "Requesting..." : "Request Ride"}
-      </button>
-    </form>
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-primary text-white p-2 rounded hover:bg-blue-700 transition"
+        >
+          {isSubmitting ? "Requesting..." : "Request Ride"}
+        </Button>
+      </form>
+    </div>
   );
 };
 

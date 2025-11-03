@@ -27,8 +27,8 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold text-gray-900 mb-3">Get Started</h3>
           <ul className="space-y-2 text-sm">
-            <li><Link to="#" className="hover:text-blue-600 transition">Login</Link></li>
-            <li><Link to="#" className="hover:text-blue-600 transition">Register</Link></li>
+            <li><Link to="/login" className="hover:text-blue-600 transition">Login</Link></li>
+            <li><Link to="/register" className="hover:text-blue-600 transition">Register</Link></li>
             <li><Link to="/faq" className="hover:text-blue-600 transition">FAQs</Link></li>
           </ul>
         </div>
