@@ -1,223 +1,306 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { motion } from "framer-motion"
 
 import {
-    useUserInfoQuery,
-    useUpdateProfileMutation,
-    useChangePasswordMutation
-} from "@/redux/features/auth/auth.api";
-
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+  useUserInfoQuery,
+  useUpdateProfileMutation,
+  useChangePasswordMutation,
+} from "@/redux/features/auth/auth.api"
+import { useChangeOnlineStatusMutation } from "@/redux/features/driver/driver.api"
 
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue
-} from "@/components/ui/select";
-import { useChangeOnlineStatusMutation } from "@/redux/features/driver/driver.api";
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { User, Lock, Wifi, EyeOff, Eye, Smartphone, LockOpen } from "lucide-react"
 
 const ProfilePage = () => {
-    const { data, isLoading } = useUserInfoQuery(undefined);
-    const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
-    const [changePassword, { isLoading: isChanging }] = useChangePasswordMutation();
-    const [changeOnlineStatus] = useChangeOnlineStatusMutation();
+  const { data, isLoading } = useUserInfoQuery(undefined)
+  const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation()
+  const [changePassword, { isLoading: isChanging }] = useChangePasswordMutation()
+  const [changeOnlineStatus] = useChangeOnlineStatusMutation()
 
-    const user = data?.data?.data;
-    const avatarText = user?.name
-        ? user.name
-            .split(" ")
-            .slice(0, 2)
-            .map((w: string) => w.charAt(0).toUpperCase())
-            .join("")
-        : "?";
+  const [showOldPassword, setShowOldPassword] = useState(false)
+  const [showNewPassword, setShowNewPassword] = useState(false)
 
-    const { register, handleSubmit, reset } = useForm({
-        defaultValues: { name: "", phone: "" },
-    });
+  const user = data?.data?.data
 
-    useEffect(() => {
-        if (user) {
-            reset({ name: user.name || "", phone: user.phone || "" });
-        }
-    }, [user, reset]);
+  // Initialize onlineStatus after user data loads
+  const [onlineStatus, setOnlineStatus] = useState<string>("")
+  useEffect(() => {
+    if (user) {
+      setOnlineStatus(user.isOnline ? "ONLINE" : "OFFLINE")
+    }
+  }, [user])
 
-    const onSubmitProfile = async (values: any) => {
-        if (!user?._id) return;
-        try {
-            await updateProfile({ id: user._id, userInfo: values }).unwrap();
-            toast.success("Profile updated successfully!");
-            reset(values);
-        } catch (err: any) {
-            toast.error(err?.data?.message || "Failed to update profile");
-        }
-    };
+  const avatarText = user?.name
+    ? user.name
+        .split(" ")
+        .slice(0, 2)
+        .map((w: string) => w.charAt(0).toUpperCase())
+        .join("")
+    : "?"
 
-    const { register: registerPwd, handleSubmit: handleSubmitPwd, reset: resetPwd } = useForm({
-        defaultValues: { oldPassword: "", newPassword: "" },
-    });
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: { name: "", phone: "" },
+  })
 
-    const onSubmitPassword = async (values: any) => {
-        try {
-            await changePassword(values).unwrap();
-            toast.success("Password changed successfully!");
-            resetPwd();
-        } catch (err: any) {
-            toast.error(err?.data?.message || "Failed to change password");
-        }
-    };
+  useEffect(() => {
+    if (user) {
+      reset({ name: user.name || "", phone: user.phone || "" })
+    }
+  }, [user, reset])
 
-    const [onlineStatus, setOnlineStatus] = useState(user?.isOnline || "OFFLINE");
+  const onSubmitProfile = async (values: any) => {
+    if (!user?._id) return
+    try {
+      await updateProfile({ id: user._id, userInfo: values }).unwrap()
+      toast.success("Profile updated successfully!")
+      reset(values)
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update profile")
+    }
+  }
 
-    const handleStatusChange = async (value: string) => {
-        setOnlineStatus(value);
-        try {
-            await changeOnlineStatus({ status: value }).unwrap();
-            toast.success(`Status changed to ${value}`);
-        } catch (err: any) {
-            toast.error(err?.data?.message || "Failed to update status");
-        }
-    };
+  const {
+    register: registerPwd,
+    handleSubmit: handleSubmitPwd,
+    reset: resetPwd,
+  } = useForm({
+    defaultValues: { oldPassword: "", newPassword: "" },
+  })
 
-    if (isLoading) return <div className="flex justify-center items-center h-40"><p>Loading...</p></div>;
-    console.log(user._id);
+  const onSubmitPassword = async (values: any) => {
+    try {
+      await changePassword(values).unwrap()
+      toast.success("Password changed successfully!")
+      resetPwd()
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to change password")
+    }
+  }
+
+  const handleStatusChange = async (value: string) => {
+    setOnlineStatus(value)
+    try {
+      await changeOnlineStatus({ status: value }).unwrap()
+      toast.success(`Status changed to ${value === "ONLINE" ? "Online" : "Offline"}`)
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update status")
+    }
+  }
+
+  if (isLoading)
     return (
-        <div className="mx-auto space-y-8">
-            {/* User Info Card */}
-            <Card className="p-4 space-y-4">
-                <CardHeader className="flex items-center gap-4">
-                    <Avatar className="w-20 h-20">
-                        <AvatarImage src="./avatar.jpg" alt={user?.name || "Avatar"} />
-                        <AvatarFallback>{avatarText}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                        <CardTitle className="text-xl font-semibold">{user?.name}</CardTitle>
-                        <p className="text-sm text-muted-foreground">{user?.email}</p>
-                    </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <p className="text-muted-foreground text-sm">Role</p>
-                            <p className="font-medium capitalize">{user?.role}</p>
-                        </div>
-                        <div>
-                            <p className="text-muted-foreground text-sm">Phone</p>
-                            <p className="font-medium capitalize">{user?.phone || 'N/A'}</p>
-                        </div>
-                        <div>
-                            <p className="text-muted-foreground text-sm">Status</p>
-                            <Badge
-                                className="px-5 py-0.5 rounded-md"
-                                variant={
-                                    user?.isActive === "ACTIVE"
-                                        ? "default"
-                                        : user?.isActive === "INACTIVE"
-                                            ? "destructive"
-                                            : "secondary"
-                                }
-                            >
-                                {user?.isActive}
-                            </Badge>
-                        </div>
-                        <div>
-                            <p className="text-muted-foreground text-sm">Approved</p>
-                            <Badge
-                                className="px-5 py-0.5 rounded-md"
-                                variant={user?.isApprove ? "default" : "destructive"}
-                            >
-                                {user?.isApprove ? "Yes" : "No"}
-                            </Badge>
-                        </div>
-                        <div>
-                            <p className="text-muted-foreground text-sm">Is Blocked</p>
-                            <Badge
-                                className="px-5 py-0.5 rounded-md"
-                                variant={user?.isApprove ? "default" : "destructive"}
-                            >
-                                {user?.isBlocked ? "Yes" : "No"}
-                            </Badge>
-                        </div>
-                        {
-                            user?.role === "driver" && (
-                                <div>
-                                    <p className="text-muted-foreground text-sm">Online Status</p>
-                                    <Badge
-                                        className="px-5 py-0.5 rounded-md"
-                                        variant={user?.isApprove ? "default" : "destructive"}
-                                    >
-                                        {onlineStatus}
-                                    </Badge>
-                                </div>
-                            )
-                        }
+      <div className="flex justify-center items-center h-40 text-gray-500">
+        Loading profile...
+      </div>
+    )
 
-                    </div>
+  return (
+    <section className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 py-16 px-4 md:px-10">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-5xl mx-auto space-y-10"
+      >
+        <Card className="border-none shadow-2xl backdrop-blur-md bg-white/80">
+          <CardHeader className="flex flex-col md:flex-row items-center gap-6 border-b pb-6">
+            <Avatar className="w-24 h-24 shadow-md ring-4 ring-blue-100">
+              <AvatarImage src="./avatar.jpg" alt={user?.name || "Avatar"} />
+              <AvatarFallback>{avatarText}</AvatarFallback>
+            </Avatar>
+            <div className="text-center md:text-left">
+              <CardTitle className="text-2xl font-bold text-gray-800">
+                {user?.name}
+              </CardTitle>
+              <p className="text-sm text-gray-500">{user?.email}</p>
+              <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3">
+                <Badge variant="secondary" className="capitalize">
+                  {user?.role}
+                </Badge>
+                <Badge
+                  variant={
+                    user?.isActive === "ACTIVE"
+                      ? "default"
+                      : user?.isActive === "INACTIVE"
+                      ? "destructive"
+                      : "secondary"
+                  }
+                >
+                  {user?.isActive}
+                </Badge>
+                <Badge
+                  variant={user?.isApprove ? "default" : "destructive"}
+                >
+                  {user?.isApprove ? "Approved" : "Not Approved"}
+                </Badge>
+              </div>
+            </div>
+          </CardHeader>
 
+          <CardContent className="grid md:grid-cols-2 gap-6 py-6">
+            <div className="space-y-2">
+              <p className="text-gray-500 text-sm flex items-center">
+                <Smartphone size={18} /> Phone
+              </p>
+              <p className="font-semibold text-gray-800">
+                {user?.phone || "N/A"}
+              </p>
+            </div>
 
+            <div className="space-y-2">
+              <p className="text-gray-500 text-sm flex gap-2">
+                <LockOpen size={18} /> Blocked
+              </p>
+              <Badge
+                variant={user?.isBlocked ? "destructive" : "default"}
+                className="px-5 py-0.5 rounded-md"
+              >
+                {user?.isBlocked ? "Yes" : "No"}
+              </Badge>
+            </div>
 
-                    {user?.role === "driver" && (
-                        <div className="mt-4">
-                            <p className="text-muted-foreground text-sm mb-1">Online Status</p>
-                            <Select value={onlineStatus ? 'Online' : 'Offline'} onValueChange={handleStatusChange}>
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Select status" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="ONLINE">{onlineStatus ? "Offline" : "Online"}</SelectItem>
-                                </SelectContent>
-                            </Select>
+            {user?.role === "driver" && (
+              <div className="space-y-2 md:col-span-2">
+                <p className="text-gray-500 text-sm flex items-center gap-2">
+                  <Wifi size={16} /> Online Status
+                </p>
+                <Select value={onlineStatus} onValueChange={handleStatusChange}>
+                  <SelectTrigger className="w-full md:w-1/2">
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ONLINE">Online</SelectItem>
+                    <SelectItem value="OFFLINE">Offline</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
-                        </div>
-                    )}
-                </CardContent>
-            </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Card className="p-8 shadow-2xl bg-white/80 backdrop-blur-md">
+            <h2 className="text-center font-bold text-2xl text-gray-800 flex items-center justify-center gap-2">
+              <User size={22} /> Update Profile
+            </h2>
+            <form
+              onSubmit={handleSubmit(onSubmitProfile)}
+              className="space-y-6 mt-6"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="text-sm text-gray-500 mb-1 block">
+                    Full Name
+                  </label>
+                  <Input {...register("name")} placeholder="Enter your name" />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-500 mb-1 block">
+                    Phone Number
+                  </label>
+                  <Input
+                    {...register("phone")}
+                    placeholder="Enter phone number"
+                  />
+                </div>
+              </div>
+              <Button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                disabled={isUpdating}
+              >
+                {isUpdating ? "Updating..." : "Update Profile"}
+              </Button>
+            </form>
+          </Card>
+        </motion.div>
 
-            <Card className="p-6 shadow-xl rounded-xl">
-                <h2 className="text-center font-bold text-xl">Update Profile</h2>
-                <form onSubmit={handleSubmit(onSubmitProfile)} className="space-y-4 mt-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label className="text-sm text-muted-foreground">Name</label>
-                            <Input {...register("name")} placeholder="Enter name" />
-                        </div>
-                        <div>
-                            <label className="text-sm text-muted-foreground">Phone Number</label>
-                            <Input {...register("phone")} placeholder="Enter phone number" />
-                        </div>
-                    </div>
-                    <Button type="submit" className="mt-4" disabled={isUpdating}>
-                        {isUpdating ? "Updating..." : "Update Profile"}
-                    </Button>
-                </form>
-            </Card>
-            <Card className="p-6 shadow-xl rounded-xl">
-                <h2 className="text-center font-bold text-xl">Change Password</h2>
-                <form onSubmit={handleSubmitPwd(onSubmitPassword)} className="space-y-4 mt-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label className="text-sm text-muted-foreground">Old Password</label>
-                            <Input {...registerPwd("oldPassword")} type="password" placeholder="Enter old password" />
-                        </div>
-                        <div>
-                            <label className="text-sm text-muted-foreground">New Password</label>
-                            <Input {...registerPwd("newPassword")} type="password" placeholder="Enter new password" />
-                        </div>
-                    </div>
-                    <Button type="submit" className="mt-4" disabled={isChanging}>
-                        {isChanging ? "Changing..." : "Change Password"}
-                    </Button>
-                </form>
-            </Card>
-        </div>
-    );
-};
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <Card className="p-8 shadow-2xl bg-white/80 backdrop-blur-md">
+            <h2 className="text-center font-bold text-2xl text-gray-800 flex items-center justify-center gap-2">
+              <Lock size={20} /> Change Password
+            </h2>
+            <form
+              onSubmit={handleSubmitPwd(onSubmitPassword)}
+              className="space-y-6 mt-6"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="relative">
+                  <label className="text-sm text-gray-500 mb-1 block">
+                    Old Password
+                  </label>
+                  <Input
+                    {...registerPwd("oldPassword")}
+                    type={showOldPassword ? "text" : "password"}
+                    placeholder="Enter old password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowOldPassword((prev) => !prev)}
+                    className="absolute right-3 top-8 text-gray-500 hover:text-gray-700"
+                  >
+                    {showOldPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
 
-export default ProfilePage;
+                <div className="relative">
+                  <label className="text-sm text-gray-500 mb-1 block">
+                    New Password
+                  </label>
+                  <Input
+                    {...registerPwd("newPassword")}
+                    type={showNewPassword ? "text" : "password"}
+                    placeholder="Enter new password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowNewPassword((prev) => !prev)}
+                    className="absolute right-3 top-8 text-gray-500 hover:text-gray-700"
+                  >
+                    {showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+              <Button
+                type="submit"
+                className="bg-green-600 hover:bg-green-700 text-white"
+                disabled={isChanging}
+              >
+                {isChanging ? "Changing..." : "Change Password"}
+              </Button>
+            </form>
+          </Card>
+        </motion.div>
+      </motion.div>
+    </section>
+  )
+}
+
+export default ProfilePage
