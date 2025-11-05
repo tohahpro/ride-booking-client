@@ -27,6 +27,7 @@ import {
     useChangeBlockStatusMutation,
 } from "@/redux/features/admin/admin.api"
 import { cn } from "@/lib/utils"
+import AnalyticsDashboard from "@/components/modules/Admin/Analytics"
 
 const AllUsers = () => {
     const { data, isLoading, isError, refetch } = useGetUsersQuery(undefined)
@@ -80,7 +81,11 @@ const AllUsers = () => {
         return <p className="text-center text-red-500">Something went wrong!</p>
 
     return (
-        <motion.div
+        <div>
+           <div>
+                <AnalyticsDashboard />
+            </div>
+            <motion.div
             className="p-4 md:p-8 space-y-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -204,6 +209,7 @@ const AllUsers = () => {
                 </CardContent>
             </Card>
         </motion.div>
+        </div>
     )
 }
 
