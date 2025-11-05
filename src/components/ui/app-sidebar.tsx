@@ -34,8 +34,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <Link to={'/'}>
-          logo
+        <Link to="/" className="text-primary font-semibold text-lg hover:text-primary/90">
+          Ride<span className="text-foreground">Flow</span>
         </Link>
       </SidebarHeader>
       <SidebarContent>
