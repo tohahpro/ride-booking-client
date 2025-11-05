@@ -36,7 +36,7 @@ const History = () => {
   const handleNext = () => setCurrentPage((p) => Math.min(p + 1, totalPages))
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-20 px-6">
+    <section className="min-h-screen py-20 px-6">
       <div className="max-w-6xl mx-auto">
       
         <motion.div
@@ -55,9 +55,9 @@ const History = () => {
         </motion.div>
 
 
-        <div className="overflow-hidden rounded-2xl shadow-md border border-gray-100 bg-white">
+        <div className="overflow-hidden rounded-2xl shadow-md border">
           <Table>
-            <TableHeader className="bg-blue-50">
+            <TableHeader className="bg-chart-1">
               <TableRow>
                 <TableHead className="font-semibold text-gray-700">Destination</TableHead>
                 <TableHead className="font-semibold text-gray-700">Pickup</TableHead>
@@ -75,7 +75,7 @@ const History = () => {
                 >
                   <TableCell className="font-medium">{ride.destinationLocation.address}</TableCell>
                   <TableCell className="font-medium">{ride.pickupLocation.address}</TableCell>
-                  <TableCell className="text-gray-700">{ride.fare} ৳</TableCell>
+                  <TableCell className="text-chart-1">{ride.fare} ৳</TableCell>
                   <TableCell>
                     <Badge
                       variant={
