@@ -1,50 +1,103 @@
-# React + TypeScript + Vite
+# 🚗 RideShare - Complete Ride Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack ride-sharing platform built with 
+**React 19**, 
+**TypeScript**,
+**Redux Toolkit**, and 
+**Tailwind CSS**. 
+Featuring separate dashboards for Riders, Drivers, and Administrators with real-time ride tracking, payment processing, and comprehensive management capabilities.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Link - 
 
-## Expanding the ESLint configuration
+## 🎓 Assignment Project - Advanced Web Technologies
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 📋 Project Overview
+As required by the assignment, this project develops a full ride-sharing ecosystem with three different user roles, secure authentication, real-time tracking, and extensive administrative controls.
 
-- Configure the top-level `parserOptions` property like this:
+## ✨ Core Features Implemented
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 🌐 Public Landing Pages (No Authentication Required)
+- **Homepage** - 5+ distinct sections: Hero Banner, How-it-works, Features, Testimonials, CTA
+- **About Us** - Company background, mission, and team information
+- **Features** - Detailed breakdown of Rider, Driver, and Admin capabilities
+- **Contact** - Fully validated contact form with simulated submission
+- **FAQ** - Searchable frequently asked questions section
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 🔐 Authentication & Authorization System
+- **JWT-based Authentication** - Secure login/registration.
+- **Role-based Access Control** - Rider, Driver, and Admin specific dashboards
+- **Account Status Handling** - Blocked/suspended user redirection
+- **Driver Online/Offline Status** - Control ride acceptance availability
+- **Persistent Sessions** - Maintain authentication state across browser sessions
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 🚴‍♂️ Rider Features
+- **Ride Booking** - Pickup/destination selection with fare estimation
+- **Real-time Tracking** - Live ride status updates with driver details
+- **Ride History** - Paginated list with search and filter capabilities
+- **Profile Management** - Edit personal information and change password
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
+### 🚗 Driver Features
+- **Availability Toggle** - Online/Offline status control
+- **Ride Acceptance** - Accept/reject incoming ride requests
+- **Ride Management** - Status updates (Accepted → Picked Up → In Transit → Completed)
+- **Earnings Dashboard** - Visual charts for daily/weekly/monthly earnings
+- **Vehicle Management** - Update vehicle details and documents
+
+### 👨‍💼 Admin Features
+- **User Management** - Comprehensive user CRUD operations with search/filter
+- **Ride Oversight** - View all platform rides with advanced filtering
+- **Analytics Dashboard** - Data visualizations for platform metrics
+- **System Monitoring** - Platform performance and activity tracking
+
+
+## 🛠 Complete Tech Stack
+
+### Frontend Framework & Language
+- **React 19** - Latest React with concurrent features and hooks
+- **TypeScript** - Full type safety with strict configuration
+- **React Router v7** - Declarative routing with protected routes
+
+### State Management & API
+- **Redux Toolkit** - Modern Redux with simplified syntax
+- **RTK Query** - Powerful data fetching and caching
+- **Axios** - HTTP client for API communications
+
+### UI & Styling
+- **Tailwind CSS v4** - Utility-first CSS framework with custom configuration
+- **Shadcn/ui** - Reusable component library built on Radix UI
+- **Radix UI Primitives** - Unstyled, accessible component foundations
+- **Lucide React** - Beautiful & consistent icons
+- **Framer Motion** - Smooth animations and transitions
+
+### Forms & Validation
+- **React Hook Form** - High-performance form management
+- **Zod** - TypeScript-first schema validation
+- **@hookform/resolvers** - Zod integration for form validation
+
+### Notifications & UX
+- **Sonner** - Beautiful toast notifications
+- **Skeleton Loaders** - Loading states for better UX
+- **Error Boundaries** - Graceful error handling
+
+### Build Tools & Development
+- **Vite** - Fast development server and build tool
+- **TypeScript ESLint** - Code quality and type checking
+- **Tailwind CSS Vite Plugin** - Optimized CSS processing
+
+## 🚀 Quick Start Guide
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Modern web browser
+
+
+### Installation & Setup
+
+1. **Clone and Install**
+   ```bash
+   git clone https://github.com/tohahpro/ride-booking-client.git
+   cd ride-booking-client
+   npm install
