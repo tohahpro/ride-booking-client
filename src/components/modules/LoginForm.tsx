@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import Password from "../ui/password";
 
@@ -17,13 +17,16 @@ export function LoginForm({
   const form = useForm();
   const [login] = useLoginMutation()
   const navigate = useNavigate()
+  const location = useLocation()
+  
+  const from1 = (location.state as any)?.from?.pathname || "/"
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {    
     console.log(data);
     try {
       await login(data).unwrap();
       toast.success("Logged In Successful")
-      navigate('/')
+      navigate(from1, { replace: true })
     } catch (err: any) {
       console.error(err)
       const message = err?.data?.message || err?.error || "Login failed. Please try again.";
@@ -74,7 +77,7 @@ export function LoginForm({
               )}
             />
           </form>
-          <Link to={'/forgot-password'} className="text-xs text-chart-5 flex justify-end font-medium pb-3">Forgot Password?</Link>
+          {/* <Link to={'/forgot-password'} className="text-xs text-chart-5 flex justify-end font-medium pb-3">Forgot Password?</Link> */}
           <Button form="login-button" type="submit" className="w-full">
             Login
           </Button>

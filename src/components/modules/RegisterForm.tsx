@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 
 import { useRegisterMutation } from "@/redux/features/auth/auth.api"
-import { useLocation, useNavigate } from "react-router"
+import { Link, useLocation, useNavigate } from "react-router"
 
 
 const registerSchema = z.object({
@@ -125,6 +125,12 @@ const RegisterForm = () => {
                         </Button>
                     </form>
                 </CardContent>
+                <div className="text-center text-sm">
+                    Have an account?{" "}
+                    <Link to="/login" replace className="underline underline-offset-4">
+                        Login
+                    </Link>
+                </div>
             </Card>
         </motion.div>
     )

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api"
 import { motion } from "framer-motion"
 import { Car, User, ShieldCheck, DollarSign, Headphones, Star } from "lucide-react"
 import { Link } from "react-router"
@@ -7,6 +8,19 @@ import { Link } from "react-router"
 
 
 export default function HomePage() {
+
+    const { data, isLoading } = useUserInfoQuery(undefined)
+    const user = data?.data?.data
+    const role = user?.role
+    console.log(role);
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-40 text-gray-500">
+                Loading profile...
+            </div>
+        )
+    }
 
     return (
         <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
@@ -177,6 +191,43 @@ export default function HomePage() {
                     ))}
                 </div>
             </section>
+
+            <section className="relative w-full bg-white overflow-hidden py-28 md:py-36">
+                <div
+                    className="absolute pt-12 inset-0"
+                    style={{
+                        background: "radial-gradient(circle at top center, rgba(59,130,246,0.15) 0%, rgba(255,255,255,0) 70%)",
+                    }}
+                >
+                {!isLoading && role !== "driver" && role !== "admin" && (
+                    <section className="bg-gradient-to-r text-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="max-w-3xl mx-auto px-6"
+                        >
+                            <h2 className="text-4xl text-black font-bold mb-4">
+                                Want to Earn While You Drive?
+                            </h2>
+                            <p className="text-lg text-chart-5 mb-8">
+                                Join thousands of drivers making reliable income with RideFlow.
+                                Be your own boss and start your driving journey today!
+                            </p>
+                            <Link to="/driver-registration">
+                                <Button
+                                    size="lg"
+                                    className="bg-white text-blue-600 font-semibold hover:bg-blue-50 px-8 py-3 rounded-full shadow-lg transition-all"
+                                >
+                                    Become a Driver
+                                </Button>
+                            </Link>
+                        </motion.div>
+                    </section>
+                )}
+                </div>
+            </section>
+
 
 
         </div>
