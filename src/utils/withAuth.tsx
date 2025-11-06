@@ -1,14 +1,20 @@
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api"
 import type { TRole } from "@/types"
 import type { ComponentType } from "react"
-import { Navigate } from "react-router"
+import { Navigate, useLocation } from "react-router"
 
 export const withAuth = (Component: ComponentType, requiredRole?: TRole, requiredId?: string) => {
     return function AuthWrapper() {
 
         const { data, isLoading } = useUserInfoQuery(undefined)
+        const location = useLocation()
+
         if (!isLoading && !data?.data?.data?.email) {
-            return <Navigate to={'/login'} />
+            return <Navigate
+                to={'/login'}
+                state={{ from: location.pathname }}
+                replace
+            />
         }
 
         console.log(data?.data?.data?._id);
@@ -19,7 +25,7 @@ export const withAuth = (Component: ComponentType, requiredRole?: TRole, require
         if (requiredRole && !isLoading && requiredRole !== data?.data?.data?.role) {
             return <Navigate to={'/unauthorized'} />
         }
-        
+
         return <Component />
     }
 }

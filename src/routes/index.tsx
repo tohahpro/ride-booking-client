@@ -15,6 +15,7 @@ import FaqPage from "@/pages/Public/FAQ";
 import Contact from "@/pages/Public/Contact";
 import FeaturesSection from "@/pages/Public/Features";
 import AboutPage from "@/pages/Public/AboutPage";
+import RegisterPage from "@/pages/RegisterPage";
 
 
 const router = createBrowserRouter([
@@ -45,10 +46,10 @@ const router = createBrowserRouter([
         ]
     },
     {
-        Component: withAuth(DashboardLayout, role.admin as TRole, ),
+        Component: withAuth(DashboardLayout, role.admin as TRole,),
         path: '/admin',
         children: [
-            {index: true, element: <Navigate to={'/admin/all-users'}/>},
+            { index: true, element: <Navigate to={'/admin/all-users'} /> },
             ...generateRoutes(adminSidebarItems)
         ]
     },
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
         Component: withAuth(DashboardLayout, role.rider as TRole),
         path: '/rider',
         children: [
-            {index: true, element: <Navigate to={'/rider/ride-request'}/>},
+            { index: true, element: <Navigate to={'/rider/ride-request'} /> },
             ...generateRoutes(riderSidebarItems),
             ...riderDynamicRoutes.map(route => ({
                 path: route.url,
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
         Component: withAuth(DashboardLayout, role.driver as TRole),
         path: '/driver',
         children: [
-            {index: true, element: <Navigate to={'/driver/get-request'}/>},
+            { index: true, element: <Navigate to={'/driver/get-request'} /> },
             ...generateRoutes(driverSidebarItems),
             ...driverDynamicRoutes.map(route => ({
                 path: route.url,
@@ -81,10 +82,14 @@ const router = createBrowserRouter([
         Component: LoginPage
     },
     {
-        path: '/driver-registration',
-        Component: DriverRegistration
+        path: '/register',
+        Component: RegisterPage
     },
-    
+    {
+        path: '/driver-registration',
+        Component: withAuth(DriverRegistration, role.rider as TRole)
+    },
+
 ]);
 
 
