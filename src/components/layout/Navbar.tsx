@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
@@ -10,11 +11,12 @@ import {
   PopoverContent
 } from "@/components/ui/popover"
 import { Link, useLocation } from "react-router"
-import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api"
-import { useDispatch } from "react-redux"
+import { useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api"
+
 import { cn } from "@/lib/utils"
 import { ModeToggle } from "./ModeToggler"
 import UserMenu from "../ui/user-menu"
+import { toast } from "sonner"
 
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
@@ -27,12 +29,20 @@ const navigationLinks = [
 export default function Navbar() {
   const { data } = useUserInfoQuery(undefined)
   const [logout] = useLogoutMutation()
-  const dispatch = useDispatch()
   const location = useLocation()
 
   const handleLogout = async () => {
-    await logout(undefined)
-    dispatch(authApi.util.resetApiState())
+    try {
+      const res = await logout(undefined).unwrap()      
+      if (res.success) {
+        toast.success("Logged out successfully ")
+        window.location.href = "/"
+      }
+
+    } catch (error: any) {
+      toast.error("Logout failed")
+      console.error("Logout error:", error)
+    }
   }
 
   const isActive = (href: string) => location.pathname === href

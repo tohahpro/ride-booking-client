@@ -49,7 +49,6 @@ const DriverRegistrationForm = () => {
             form.reset();
             navigate("/login");
         } catch (error: any) {
-            console.log(error);
             toast.error(error?.data?.message || "Failed to register driver");
         }
     };

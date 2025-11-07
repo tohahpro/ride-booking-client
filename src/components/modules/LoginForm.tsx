@@ -22,7 +22,7 @@ export function LoginForm({
   const from1 = (location.state as any)?.from?.pathname || "/"
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {    
-    console.log(data);
+   
     try {
       await login(data).unwrap();
       toast.success("Logged In Successful")

@@ -32,7 +32,7 @@ import AnalyticsDashboard from "@/components/modules/Admin/Analytics"
 const AllUsers = () => {
     const { data, isLoading, isError, refetch } = useGetUsersQuery(undefined)
     const [changeBlockStatus, { isLoading: isBlocking }] = useChangeBlockStatusMutation()
-    console.log(data?.data);
+    
     const [search, setSearch] = useState("")
     const [roleFilter, setRoleFilter] = useState("all")
     const [statusFilter, setStatusFilter] = useState("all")

@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import { toast } from "sonner"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name is required" }),
@@ -38,7 +39,7 @@ export default function Contact() {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values)
-        alert("Message sent successfully!")
+        toast.success("Message sent successfully!")
     }
 
     return (

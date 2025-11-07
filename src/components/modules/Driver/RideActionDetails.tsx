@@ -53,10 +53,6 @@ const RideActionDetails = () => {
             toast.warning("Please select an action first");
             return;
         }
-        console.log({
-            rideId: ride._id,
-            action: selectedAction
-        });
         try {
             await driverAction({
                 rideId: ride._id,

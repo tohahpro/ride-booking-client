@@ -12,7 +12,6 @@ export default function HomePage() {
     const { data, isLoading } = useUserInfoQuery(undefined)
     const user = data?.data?.data
     const role = user?.role
-    console.log(role);
 
     if (isLoading) {
         return (

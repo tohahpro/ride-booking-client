@@ -13,10 +13,10 @@ export const authApi = baseApi.injectEndpoints({
         }),
         logout: builder.mutation({
             query: () => ({
-                url: "/auth/logout",
+                url: "/auth/logout", 
                 method: "POST"
             }),
-            invalidatesTags: []
+            invalidatesTags: ["USER"]
         }),
         register: builder.mutation({
             query: (userInfo) => ({
